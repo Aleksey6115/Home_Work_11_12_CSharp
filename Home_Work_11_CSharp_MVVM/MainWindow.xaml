@@ -30,15 +30,15 @@
                 <MenuItem 
                     Header="Сохранить"
                     Command="{Binding SaveFileCommand}"/>
+                <MenuItem 
+                    Header="Сгенерировать базу"
+                    Command="{Binding GeneratorBase}"/>
             </MenuItem>
 
             <MenuItem Header="Редактирование">
                 <MenuItem 
                     Header="Добавить клиента"
                     Command="{Binding AddClient}"/>
-                <MenuItem 
-                    Header="Сгенерировать базу"
-                    Command="{Binding GeneratorBase}"/>
                 <MenuItem
                     Header="Удалить текущего клиента"
                     Command="{Binding RemoveClient}"
@@ -93,6 +93,24 @@
             Grid.Row="1"
             Grid.Column="1"
             Header="Изменения">
+
+            <ListBox 
+                x:Name="changes_client"
+                DataContext="{Binding Selected_client}"
+                ItemsSource="{Binding changes}"
+                SelectedItem="{Binding Changes}">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding Path=Date_last_changes}"/>
+                            <TextBlock Text="{Binding Path=Changes_type}"/>
+                            <TextBlock Text="{Binding Path=Author_of_changes}"/>
+                            <TextBlock Text="{Binding Path=Edit_value}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             
         </GroupBox>
 

@@ -28,6 +28,7 @@ namespace Home_Work_11_CSharp_MVVM
             set
             {
                 first_name = value;
+                changes.Add(new Changes("Имя", Client_ViewModel.current_user.Name, value));
                 OnPropertyChanged("First_name");
             }
         }
@@ -41,6 +42,7 @@ namespace Home_Work_11_CSharp_MVVM
             set
             {
                 last_name = value;
+                changes.Add(new Changes("Фамилия", Client_ViewModel.current_user.Name, value));
                 OnPropertyChanged("Last_name");
             }
         }
@@ -54,6 +56,7 @@ namespace Home_Work_11_CSharp_MVVM
             set
             {
                 telefon_number = value;
+                changes.Add(new Changes("Телефонный номер", Client_ViewModel.current_user.Name, $"{value}")); 
                 OnPropertyChanged("Telefon_number");
             }
         }
@@ -67,9 +70,15 @@ namespace Home_Work_11_CSharp_MVVM
             set
             {
                 passport_number = value;
+                changes.Add(new Changes("Номер паспорта", Client_ViewModel.current_user.Name, $"{value}"));
                 OnPropertyChanged("Passport_number");
             }
         }
+
+        /// <summary>
+        /// Список изменений
+        /// </summary>
+        public ObservableCollection<Changes> changes { get; set; }
         #endregion
 
         public Client_Model()
@@ -78,6 +87,7 @@ namespace Home_Work_11_CSharp_MVVM
             last_name = "Фамилия";
             telefon_number = 1111111;
             passport_number = 1111111;
+            changes = new ObservableCollection<Changes>();
         }
 
         // Оповещение внешних клиентов об изменениях

@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
+using System.Windows;
 
 
 namespace Home_Work_11_CSharp_MVVM 
@@ -14,6 +15,9 @@ namespace Home_Work_11_CSharp_MVVM
         private IDialog_Service dialog_service; // Сервис диалогового окна "Открыть/Сохранить"
         private IFile_Service file_service; // Сервис для работы с файлами
         private bool isReadOnly; // установки параметра IsReadOnly в DataGrid
+
+        public static IUsers current_user; // Текущий пользователь
+
 
         #region Свойства
         /// <summary>
@@ -57,6 +61,7 @@ namespace Home_Work_11_CSharp_MVVM
             dialog_service = dialog;
             file_service = file;
             isReadOnly = user.IsReadOnly;
+            current_user = user;
         }
 
         #region Комманды
@@ -140,7 +145,8 @@ namespace Home_Work_11_CSharp_MVVM
                             First_name = $"Имя {i + 1}",
                             Last_name = $"Фамилия {i + 1}",
                             Telefon_number = rand.Next(1000000, 2000000),
-                            Passport_number = rand.Next(2000000, 3000000)
+                            Passport_number = rand.Next(2000000, 3000000),
+                            changes = new ObservableCollection<Changes>(),
                         });
                     }
                 }));
