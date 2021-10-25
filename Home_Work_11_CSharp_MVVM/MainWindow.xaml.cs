@@ -23,7 +23,7 @@ namespace Home_Work_11_CSharp_MVVM
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new Client_ViewModel(new Dialog_Service(), new File_Service(), new Consultant());
+            DataContext = new Client_ViewModel(new Dialog_Service(), new File_Service(), new Maneger());
         }
     }
 }
