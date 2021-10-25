@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Windows;
 
 
-namespace Home_Work_11_CSharp_MVVM 
+namespace Home_Work_11_CSharp_MVVM
 {
     class Client_ViewModel : INotifyPropertyChanged
     {
@@ -162,7 +162,14 @@ namespace Home_Work_11_CSharp_MVVM
             {
                 return addClient ?? (addClient = new RelayCommand(obj =>
                 {
-                    Clients.Add(new Client_Model());
+                    var client = new Client_Model
+                    {
+                        First_name = "DJ",
+                        Last_name = "Bitch"
+                    };
+                    client.changes.Add(new Changes("Added", "me", "pizdes"));
+                    Clients.Add(client);
+
                 },
                 obj => isReadOnly == false));
             }
