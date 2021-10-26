@@ -37,7 +37,7 @@ namespace Home_Work_11_CSharp_MVVM
         /// <param name="edit_value"></param>
         public Changes (string type, string author, string edit_value)
         {
-            Date_last_changes = DateTime.Now.ToString();
+            Date_last_changes = $"Дата: {DateTime.Now.ToString()}";
             Changes_type = $"Измененно: {type}";
             Author_of_changes = $"Изменил: {author}";
             Edit_value = edit_value;

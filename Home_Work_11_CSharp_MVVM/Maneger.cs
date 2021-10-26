@@ -16,5 +16,15 @@ namespace Home_Work_11_CSharp_MVVM
             get { return "Менеджер"; }
             set { }
         }
+
+        /// <summary>
+        /// Для коректного отображения в ComboBox
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
+
     }
 }

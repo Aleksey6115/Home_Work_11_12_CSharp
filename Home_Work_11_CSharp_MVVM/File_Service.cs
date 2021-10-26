@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace Home_Work_11_CSharp_MVVM
 {
+    /// <summary>
+    /// Работа с файлами
+    /// </summary>
     class File_Service : IFile_Service
     {
         public ObservableCollection<Client_Model> OpenFile(string path)

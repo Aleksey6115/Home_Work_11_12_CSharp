@@ -9,13 +9,16 @@ using System.Windows;
 
 namespace Home_Work_11_CSharp_MVVM 
 {
+    /// <summary>
+    /// ViewModel
+    /// </summary>
     class Client_ViewModel : INotifyPropertyChanged
     {
         private Client_Model selected_client; // Выбранный клиент
         private IDialog_Service dialog_service; // Сервис диалогового окна "Открыть/Сохранить"
         private IFile_Service file_service; // Сервис для работы с файлами
         private bool isReadOnly; // установки параметра IsReadOnly в DataGrid
-
+        private Dialog_Authorization_Service dialog_authorization = new Dialog_Authorization_Service(); // Авторизация
         public static IUsers current_user; // Текущий пользователь
 
 
@@ -55,13 +58,12 @@ namespace Home_Work_11_CSharp_MVVM
         /// <summary>
         /// Конструктор класса Client_ViewModel
         /// </summary>
-        public Client_ViewModel(IDialog_Service dialog, IFile_Service file, IUsers user)
+        public Client_ViewModel(IDialog_Service dialog, IFile_Service file)
         {
             Clients = new ObservableCollection<Client_Model>();
             dialog_service = dialog;
             file_service = file;
-            isReadOnly = user.IsReadOnly;
-            current_user = user;
+
         }
 
         #region Комманды
@@ -70,6 +72,7 @@ namespace Home_Work_11_CSharp_MVVM
         private RelayCommand generatorBase; // Комманда генерирование БД
         private RelayCommand addClient; // Комманда добавить клиента
         private RelayCommand removeClient; // Комманда удаление клиента
+        private RelayCommand selectedUser; // Комманда выбора пользователя
 
         /// <summary>
         /// Комманда открытие файла
@@ -97,7 +100,8 @@ namespace Home_Work_11_CSharp_MVVM
                     {
                         dialog_service.ShowMessage("Ошибка");
                     }
-                }));
+                },
+                obj => current_user != null));
             }
         }
 
@@ -122,7 +126,8 @@ namespace Home_Work_11_CSharp_MVVM
                     {
                         dialog_service.ShowMessage("Ошибка");
                     }
-                }));
+                },
+                obj => current_user != null));
             }
         }
 
@@ -149,7 +154,8 @@ namespace Home_Work_11_CSharp_MVVM
                             changes = new ObservableCollection<Changes>(),
                         });
                     }
-                }));
+                },
+                obj => current_user != null));
             }
         }
 
@@ -164,7 +170,7 @@ namespace Home_Work_11_CSharp_MVVM
                 {
                     Clients.Add(new Client_Model());
                 },
-                obj => isReadOnly == false));
+                obj => isReadOnly == false && current_user != null));
             }
         }
 
@@ -180,8 +186,40 @@ namespace Home_Work_11_CSharp_MVVM
                     Client_Model client = obj as Client_Model;
                     Clients.Remove(client);
                 },
-                obj => (Clients.Count > 0 && isReadOnly == false)
+                obj => (Clients.Count > 0 && isReadOnly == false && current_user != null)
                 ));
+            }
+        }
+
+        /// <summary>
+        /// Комманда выбора пользователя
+        /// </summary>
+        public RelayCommand SelectedUser
+        {
+            get
+            {
+                return selectedUser ?? (selectedUser = new RelayCommand(obj =>
+                {
+                    current_user = null;
+                    while (current_user == null)
+                    {
+                        try
+                        {
+                            if (dialog_authorization.OpenAuthorizationDialog() == true)
+                            {
+                                current_user = dialog_authorization.SelectedUser;
+                            }
+                        }
+                        catch
+                        {
+                            dialog_authorization.ShowMessage("Ошибка");
+                        }
+
+                        if (current_user == null)
+                            dialog_authorization.ShowMessage("Нужно выбрать пользователя");
+                    }
+                    IsReadOnly = current_user.IsReadOnly;
+                }));
             }
         }
         #endregion

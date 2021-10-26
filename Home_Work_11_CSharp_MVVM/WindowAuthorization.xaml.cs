@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,20 +8,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Home_Work_11_CSharp_MVVM
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для WindowAuthorization.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WindowAuthorization : Window
     {
-        public MainWindow()
+        public WindowAuthorization()
         {
             InitializeComponent();
-            DataContext = new Client_ViewModel(new Dialog_Service(), new File_Service());
+        }
+
+        private void btnOK_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
         }
     }
 }

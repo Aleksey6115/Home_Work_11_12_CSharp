@@ -6,6 +6,9 @@ using System.Windows;
 
 namespace Home_Work_11_CSharp_MVVM
 {
+    /// <summary>
+    /// Сервис окна работы с файлами
+    /// </summary>
     class Dialog_Service : IDialog_Service
     {
         public string FilePath { get; set; }
