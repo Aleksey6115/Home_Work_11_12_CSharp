@@ -55,7 +55,7 @@
                 <MenuItem
                     Header="Удалить текущего клиента"
                     Command="{Binding RemoveClient}"
-                    CommandParameter="{Binding Selected_client}"/>
+                    CommandParameter="{Binding SelectedClient}"/>
             </MenuItem>
         </Menu>
 
@@ -64,7 +64,7 @@
                   Grid.Column="0"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding Clients}"
-                  SelectedItem="{Binding Selected_client}"
+                  SelectedItem="{Binding SelectedClient}"
                   CanUserAddRows="False">
 
             <DataGrid.Resources>
@@ -77,26 +77,26 @@
                 <DataGridTextColumn
                     Header="Имя"
                     Width="20*"
-                    Binding="{Binding First_name}"
+                    Binding="{Binding FirstName}"
                     IsReadOnly="{Binding Data.IsReadOnly, Source={StaticResource proxy}, UpdateSourceTrigger=PropertyChanged}"/>
 
 
                 <DataGridTextColumn
                     Header="Фамилия"
                     Width="20*"
-                    Binding="{Binding Last_name}"
+                    Binding="{Binding LastName}"
                     IsReadOnly="{Binding Data.IsReadOnly, Source={StaticResource proxy}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <DataGridTextColumn
                     Header="Номер телефона"
                     Width="20*"
-                    Binding="{Binding Telefon_number}"
+                    Binding="{Binding TelefonNumber}"
                     IsReadOnly="False"/>
 
                 <DataGridTextColumn
                     Header="Номер паспорта"
                     Width="20*"
-                    Binding="{Binding Passport_number}"
+                    Binding="{Binding PassportNumber}"
                     IsReadOnly="{Binding Data.IsReadOnly, Source={StaticResource proxy}, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
 
@@ -109,17 +109,17 @@
 
             <ListBox 
                 x:Name="changes_client"
-                DataContext="{Binding Selected_client}"
+                DataContext="{Binding SelectedClient}"
                 ItemsSource="{Binding changes}"
                 SelectedItem="{Binding Changes}">
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
-                            <TextBlock Text="{Binding Path=Date_last_changes}"/>
-                            <TextBlock Text="{Binding Path=Changes_type}"/>
-                            <TextBlock Text="{Binding Path=Author_of_changes}"/>
-                            <TextBlock Text="{Binding Path=Edit_value}"/>
+                            <TextBlock Text="{Binding Path=DateLastChanges}"/>
+                            <TextBlock Text="{Binding Path=ChangesType}"/>
+                            <TextBlock Text="{Binding Path=AuthorOfChanges}"/>
+                            <TextBlock Text="{Binding Path=EditValue}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

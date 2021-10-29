@@ -10,80 +10,80 @@ namespace Home_Work_11_CSharp_MVVM
     /// <summary>
     /// Класс представляющий Model
     /// </summary>
-    class Client_Model : INotifyPropertyChanged
+    class ClientModel : INotifyPropertyChanged
     {
-        private string first_name; // Имя клиента
-        private string last_name; // Фамилия клиента
-        private int telefon_number; // Телефонный номер клиента
-        private int passport_number; // Серия паспорта клиента
+        private string firstName; // Имя клиента
+        private string lastName; // Фамилия клиента
+        private int telefonNumber; // Телефонный номер клиента
+        private int passportNumber; // Серия паспорта клиента
 
         #region Свойства
         /// <summary>
         /// Имя клиента
         /// </summary>
         /// 
-        public string First_name
+        public string FirstName
         {
-            get { return first_name; }
+            get { return firstName; }
             set
             {
-                first_name = value;
+                firstName = value;
 
                 if (PropertyChanged != null)
-                    changes.Add(new Changes("Имя", Client_ViewModel.current_user.Name, value));
+                    changes.Add(new Changes("Имя", ClientViewModel.currentUser.Name, value));
 
-                OnPropertyChanged("First_name");
+                OnPropertyChanged("FirstName");
             }
         }
 
         /// <summary>
         /// Фамилия клиента
         /// </summary>
-        public string Last_name
+        public string LastName
         {
-            get { return last_name; }
+            get { return lastName; }
             set
             {
-                last_name = value;
+                lastName = value;
 
                 if (PropertyChanged != null)
-                    changes.Add(new Changes("Фамилия", Client_ViewModel.current_user.Name, value));
+                    changes.Add(new Changes("Фамилия", ClientViewModel.currentUser.Name, value));
 
-                OnPropertyChanged("Last_name");
+                OnPropertyChanged("LastName");
             }
         }
 
         /// <summary>
         /// Телефонный номер клиента
         /// </summary>
-        public int Telefon_number
+        public int TelefonNumber
         {
-            get { return telefon_number; }
+            get { return telefonNumber; }
             set
             {
-                telefon_number = value;
+                telefonNumber = value;
 
                 if (PropertyChanged != null)
-                    changes.Add(new Changes("Телефонный номер", Client_ViewModel.current_user.Name, $"{value}")); 
+                    changes.Add(new Changes("Телефонный номер", ClientViewModel.currentUser.Name, $"{value}")); 
 
-                OnPropertyChanged("Telefon_number");
+                OnPropertyChanged("TelefonNumber");
             }
         }
 
         /// <summary>
         /// Серия паспорта клиента
         /// </summary>
-        public int Passport_number
+        public int PassportNumber
         {
-            get { return passport_number; }
+            get { return passportNumber; }
             set
             {
-                passport_number = value;
+                passportNumber = value;
 
                 if (PropertyChanged != null)
-                    changes.Add(new Changes("Номер паспорта", Client_ViewModel.current_user.Name, $"{value}"));
+                    changes.Add(new Changes("Номер паспорта", ClientViewModel.currentUser.Name, $"{value}"));
 
-                OnPropertyChanged("Passport_number");
+                OnPropertyChanged("PassportNumber");
             }
         }
 
@@ -93,12 +93,12 @@ namespace Home_Work_11_CSharp_MVVM
         public ObservableCollection<Changes> changes { get; set; }
         #endregion
 
-        public Client_Model()
+        public ClientModel()
         {
-            first_name = "Имя";
-            last_name = "Фамилия";
-            telefon_number = 1111111;
-            passport_number = 1111111;
+            firstName = "Имя";
+            lastName = "Фамилия";
+            telefonNumber = 1111111;
+            passportNumber = 1111111;
             changes = new ObservableCollection<Changes>();
         }
 

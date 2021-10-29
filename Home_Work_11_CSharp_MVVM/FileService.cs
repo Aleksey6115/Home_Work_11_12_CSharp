@@ -10,16 +10,16 @@ namespace Home_Work_11_CSharp_MVVM
     /// <summary>
     /// Работа с файлами
     /// </summary>
-    class File_Service : IFile_Service
+    class FileService : IFileService
     {
-        public ObservableCollection<Client_Model> OpenFile(string path)
+        public ObservableCollection<ClientModel> OpenFile(string path)
         {
-            ObservableCollection<Client_Model> clients;
-            clients = JsonConvert.DeserializeObject<ObservableCollection<Client_Model>>(File.ReadAllText(path));
+            ObservableCollection<ClientModel> clients;
+            clients = JsonConvert.DeserializeObject<ObservableCollection<ClientModel>>(File.ReadAllText(path));
             return clients;
         }
 
-        public void SaveFile(string path, ObservableCollection<Client_Model> clients)
+        public void SaveFile(string path, ObservableCollection<ClientModel> clients)
         {
             File.WriteAllText(path, JsonConvert.SerializeObject(clients));
         }

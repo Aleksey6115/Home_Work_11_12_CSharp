@@ -12,22 +12,22 @@ namespace Home_Work_11_CSharp_MVVM
         /// <summary>
         /// Дата последнего изменения
         /// </summary>
-        public string Date_last_changes { get; set; }
-
+        public string DateLastChanges { get; set; }
+        
         /// <summary>
         /// Какое изменения
         /// </summary>
-        public string Changes_type { get; set; }
+        public string ChangesType { get; set; }
 
         /// <summary>
         /// Кто произвёл изменения
         /// </summary>
-        public string Author_of_changes { get; set; }
+        public string AuthorOfChanges { get; set; }
 
         /// <summary>
         /// Изменённый параметр
         /// </summary>
-        public string Edit_value { get; set; }
+        public string EditValue { get; set; }
 
         /// <summary>
         /// Конструктор класса Changes
@@ -37,10 +37,10 @@ namespace Home_Work_11_CSharp_MVVM
         /// <param name="edit_value"></param>
         public Changes (string type, string author, string edit_value)
         {
-            Date_last_changes = $"Дата: {DateTime.Now.ToString()}";
-            Changes_type = $"Измененно: {type}";
-            Author_of_changes = $"Изменил: {author}";
-            Edit_value = edit_value;
+            DateLastChanges = $"Дата: {DateTime.Now.ToString()}";
+            ChangesType = $"Измененно: {type}";
+            AuthorOfChanges = $"Изменил: {author}";
+            EditValue = edit_value;
         }
     }
 }

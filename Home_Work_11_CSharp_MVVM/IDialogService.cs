@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Home_Work_11_CSharp_MVVM
 {
-    interface IDialog_Service
+    interface IDialogService
     {
         /// <summary>
         /// Вывод сообщения на экран

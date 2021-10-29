@@ -12,34 +12,34 @@ namespace Home_Work_11_CSharp_MVVM
     /// <summary>
     /// ViewModel
     /// </summary>
-    class Client_ViewModel : INotifyPropertyChanged
+    class ClientViewModel : INotifyPropertyChanged
     {
-        private Client_Model selected_client; // Выбранный клиент
-        private IDialog_Service dialog_service; // Сервис диалогового окна "Открыть/Сохранить"
-        private IFile_Service file_service; // Сервис для работы с файлами
+        private ClientModel selectedClient; // Выбранный клиент
+        private IDialogService dialogService; // Сервис диалогового окна "Открыть/Сохранить"
+        private IFileService fileService; // Сервис для работы с файлами
         private bool isReadOnly; // установки параметра IsReadOnly в DataGrid
-        private Dialog_Authorization_Service dialog_authorization = new Dialog_Authorization_Service(); // Авторизация
-        public static IUsers current_user; // Текущий пользователь
+        private DialogAuthorizationService dialogAuthorization = new DialogAuthorizationService(); // Авторизация
+        public static IUsers currentUser; // Текущий пользователь
 
 
         #region Свойства
         /// <summary>
         /// Выбранный клиент
         /// </summary>
-        public Client_Model Selected_client
+        public ClientModel SelectedClient
         {
-            get { return selected_client; }
+            get { return selectedClient; }
             set
             {
-                selected_client = value;
-                OnPropertyChanged("Selected_client");
+                selectedClient = value;
+                OnPropertyChanged("SelectedClient");
             }
         }
 
         /// <summary>
         /// Список клиентов
         /// </summary>
-        public ObservableCollection<Client_Model> Clients { get; set; }
+        public ObservableCollection<ClientModel> Clients { get; set; }
 
         /// <summary>
         /// Свойства для установки параметра IsReadOnly в DataGrid
@@ -58,11 +58,11 @@ namespace Home_Work_11_CSharp_MVVM
         /// <summary>
         /// Конструктор класса Client_ViewModel
         /// </summary>
-        public Client_ViewModel(IDialog_Service dialog, IFile_Service file)
+        public ClientViewModel(IDialogService dialog, IFileService file)
         {
-            Clients = new ObservableCollection<Client_Model>();
-            dialog_service = dialog;
-            file_service = file;
+            Clients = new ObservableCollection<ClientModel>();
+            dialogService = dialog;
+            fileService = file;
 
         }
 
@@ -85,23 +85,23 @@ namespace Home_Work_11_CSharp_MVVM
                 {
                     try
                     {
-                        if (dialog_service.OpenFileDialog() == true)
+                        if (dialogService.OpenFileDialog() == true)
                         {
                             Clients.Clear();
-                            var clients = file_service.OpenFile(dialog_service.FilePath);
+                            var clients = fileService.OpenFile(dialogService.FilePath);
 
                             foreach (var c in clients)
                                 Clients.Add(c);
 
-                            dialog_service.ShowMessage("Файл загружен");
+                            dialogService.ShowMessage("Файл загружен");
                         }
                     }
                     catch
                     {
-                        dialog_service.ShowMessage("Ошибка");
+                        dialogService.ShowMessage("Ошибка");
                     }
                 },
-                obj => current_user != null));
+                obj => currentUser != null));
             }
         }
 
@@ -116,18 +116,18 @@ namespace Home_Work_11_CSharp_MVVM
                 {
                     try
                     {
-                        if (dialog_service.SaveFileDialog() == true)
+                        if (dialogService.SaveFileDialog() == true)
                         {
-                            file_service.SaveFile(dialog_service.FilePath, Clients);
-                            dialog_service.ShowMessage("Файл сохранён");
+                            fileService.SaveFile(dialogService.FilePath, Clients);
+                            dialogService.ShowMessage("Файл сохранён");
                         }
                     }
                     catch
                     {
-                        dialog_service.ShowMessage("Ошибка");
+                        dialogService.ShowMessage("Ошибка");
                     }
                 },
-                obj => current_user != null));
+                obj => currentUser != null));
             }
         }
 
@@ -145,17 +145,17 @@ namespace Home_Work_11_CSharp_MVVM
 
                     for (int i = 0; i < 30; i++)
                     {
-                        Clients.Add(new Client_Model
+                        Clients.Add(new ClientModel
                         {
-                            First_name = $"Имя {i + 1}",
-                            Last_name = $"Фамилия {i + 1}",
-                            Telefon_number = rand.Next(1000000, 2000000),
-                            Passport_number = rand.Next(2000000, 3000000),
+                            FirstName = $"Имя {i + 1}",
+                            LastName = $"Фамилия {i + 1}",
+                            TelefonNumber = rand.Next(1000000, 2000000),
+                            PassportNumber = rand.Next(2000000, 3000000),
                             changes = new ObservableCollection<Changes>(),
                         });
                     }
                 },
-                obj => current_user != null));
+                obj => currentUser != null));
             }
         }
 
@@ -168,9 +168,9 @@ namespace Home_Work_11_CSharp_MVVM
             {
                 return addClient ?? (addClient = new RelayCommand(obj =>
                 {
-                    Clients.Add(new Client_Model());
+                    Clients.Add(new ClientModel());
                 },
-                obj => isReadOnly == false && current_user != null));
+                obj => isReadOnly == false && currentUser != null));
             }
         }
 
@@ -183,10 +183,10 @@ namespace Home_Work_11_CSharp_MVVM
             {
                 return removeClient ?? (removeClient = new RelayCommand(obj =>
                 {
-                    Client_Model client = obj as Client_Model;
+                    ClientModel client = obj as ClientModel;
                     Clients.Remove(client);
                 },
-                obj => (Clients.Count > 0 && isReadOnly == false && current_user != null)
+                obj => (Clients.Count > 0 && isReadOnly == false && currentUser != null)
                 ));
             }
         }
@@ -200,25 +200,25 @@ namespace Home_Work_11_CSharp_MVVM
             {
                 return selectedUser ?? (selectedUser = new RelayCommand(obj =>
                 {
-                    current_user = null;
-                    while (current_user == null)
+                    currentUser = null;
+                    while (currentUser == null)
                     {
                         try
                         {
-                            if (dialog_authorization.OpenAuthorizationDialog() == true)
+                            if (dialogAuthorization.OpenAuthorizationDialog() == true)
                             {
-                                current_user = dialog_authorization.SelectedUser;
+                                currentUser = dialogAuthorization.SelectedUser;
                             }
                         }
                         catch
                         {
-                            dialog_authorization.ShowMessage("Ошибка");
+                            dialogAuthorization.ShowMessage("Ошибка");
                         }
 
-                        if (current_user == null)
-                            dialog_authorization.ShowMessage("Нужно выбрать пользователя");
+                        if (currentUser == null)
+                            dialogAuthorization.ShowMessage("Нужно выбрать пользователя");
                     }
-                    IsReadOnly = current_user.IsReadOnly;
+                    IsReadOnly = currentUser.IsReadOnly;
                 }));
             }
         }

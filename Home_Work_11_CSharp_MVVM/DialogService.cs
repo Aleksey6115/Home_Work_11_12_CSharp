@@ -9,7 +9,7 @@ namespace Home_Work_11_CSharp_MVVM
     /// <summary>
     /// Сервис окна работы с файлами
     /// </summary>
-    class Dialog_Service : IDialog_Service
+    class DialogService : IDialogService
     {
         public string FilePath { get; set; }
 

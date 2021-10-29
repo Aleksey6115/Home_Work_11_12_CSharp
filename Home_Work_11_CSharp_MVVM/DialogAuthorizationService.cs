@@ -9,7 +9,7 @@ namespace Home_Work_11_CSharp_MVVM
     /// <summary>
     /// Окно авторизации
     /// </summary>
-    class Dialog_Authorization_Service
+    class DialogAuthorizationService
     {
         ObservableCollection<IUsers> users = new ObservableCollection<IUsers>
         {
